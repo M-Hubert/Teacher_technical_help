@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>help teacher</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="http://localhost:8081/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <form class="jumbotron technical">
+        <h5 class="text-left">Bonjour {{username}}!</h5>
+        <a type="button" class="btn btn-outline-success" style="position: absolute" href="http://localhost:8081/">Se déconnecter</a>
+        <a type="button" class="btn btn-outline-success" style="position: absolute; margin-left: 150px;" href="http://localhost:8081/addUser">Ajouter des utilisateurs</a>
+        <h1 class="text-center">admin-panel</h1>
+        <div class="message-box">
+            <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">user</th>
+                <th scope="col">choice</th>
+                <th scope="col">explanation</th>
+                <th scope="col">dated</th>
+                <th scope="col">priority</th>
+                </tr>
+            </thead>
+            <tbody class="message">
+            </tbody>
+            </table>
+        </div>
+    </form> 
+    <script>
+        const socket = io.connect('http://localhost:8081')
+
+        socket.on('message', function(result) {
+            $('.ticket').remove()
+            $('.technical').css("height", "756px")
+            let number_ticket = 0;
+            for(let a = 1; a < 6; a++){
+                for(let i in result){
+                    if(result[i].priority == a){
+                        number_ticket++;
+                        $('.message').append('<tr id="ticket_'+i+'" class="ticket"><th scope="row" id="ticket_'+i+'_user">'+result[i].user+'</th><td id="ticket_'+i+'_reason">'+result[i].reason+'</td><td><textarea type="text" class="form-control" rows="1" readonly id="ticket_'+i+'_text">'+result[i].explanation+'</textarea></td><td id="ticket_'+i+'_dated">'+result[i].dated+'</td><td><div class="dropdown"><button class="btn btn-secondary dropdown-toggle" type="button" id="prio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+result[i].priority+'</button><div class="dropdown-menu" aria-labelledby="prio"><a class="dropdown-item drop" id="drop_1_ticket_'+i+'">1</a><a class="dropdown-item drop" id="drop_2_ticket_'+i+'">2</a><a class="dropdown-item drop" id="drop_3_ticket_'+i+'">3</a><a class="dropdown-item drop" id="drop_4_ticket_'+i+'">4</a><a class="dropdown-item drop" id="drop_5_ticket_'+i+'">5</a></div></div></td><td><button type="button" class="btn btn-outline-danger delete" id="delete_'+i+'">Supprimer</button></td></tr>')
+                         if (number_ticket > 6){
+                            $('.technical').css( "height", "+=102px" );
+                        }
+                    }
+                }
+            }
+
+            $('.drop').click(function() {
+                let prio_ticket = $(this).attr('id').slice(14)
+                let priority = $(this).attr('id').slice(5, 6)
+                socket.emit('new_priority', {
+                    user: $('#ticket_'+prio_ticket+'_user').text(),
+                    reason: $('#ticket_'+prio_ticket+'_reason').text(),
+                    text: $('#ticket_'+prio_ticket+'_text').val(),
+                    dated: $('#ticket_'+prio_ticket+'_dated').text(),
+                    priority: priority
+                })
+            })
+                
+            $('.delete').click(function() {
+                let id = $(this).attr('id').replace('delete_', '')
+                socket.emit('delete_ticket', {
+                    user: $('#ticket_'+id+'_user').text(),
+                    reason: $('#ticket_'+id+'_reason').text(),
+                    text: $('#ticket_'+id+'_text').val(),
+                    dated: $('#ticket_'+id+'_dated').text()
+                })
+            })
+        })
+    </script>
+</body>
+</html>

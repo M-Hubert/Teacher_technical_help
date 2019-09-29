@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>help teacher</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <form class="jumbotron teacher" method="POST">
+    <a type="button" class="btn btn-outline-success" href="http://localhost:8081/">Se déconnecter</a>
+    <h1 class="text-center">Besoin d'aide</h1>
+        <div class="reason">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radios" value="1" checked>
+                <label class="form-check-label">
+                    Problème matériel (école)
+                    <object data="/svg/info-circle-solid.svg" type="image/svg+xml" width="15px;" data-toggle="tooltip" data-placement="right" title="Remarque importante: les problèmes matériels sont uniquement ceux rencontrés avec le matériel appartenant à l'école."></object>
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radios" value="2">
+                <label class="form-check-label">
+                    Problème de connexion (Wi-Fi)
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radios" value="3">
+                <label class="form-check-label">
+                    Problème de connexion Office 365
+                </label>
+            </div>
+                <div class="form-check">
+                <input class="form-check-input" type="radio" name="radios" value="4">
+                <label class="form-check-label">
+                    Autre
+                </label>
+            </div>
+        </div> 
+        <div class="form-group explained">
+            <p style="color: red;">{{error_message}}</p>
+            <label>Expliquation du problème:</label>
+            <textarea type="text" class="form-control" placeholder="Donner nous des informations sur votre problème(obligatoire)" rows="3" name="explanation"></textarea>     
+        </div>
+        <button type="submit" class="btn btn-primary submit">Envoyer</button>
+    </form>
+    <script>
+        $('[data-toggle="tooltip"]').tooltip();
+    </script>
+</body>
+</html>

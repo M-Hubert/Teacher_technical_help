@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>addUser</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <form class="jumbotron addUsers" method="POST" enctype="multipart/form-data">
+        <h1 class="text-center">Ajouter des utilisateurs</h1>
+        <div class="addUsers_left">
+            <div class="form-group">
+                <label for="exampleFormControlFile1">Choisissez votre fichier .csv</label>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1" name="file">
+            </div>
+            <button type="submit" class="btn btn-primary">ajouter</button>
+            <textarea type="text" class="form-control" readonly>Attention si un des utilisateurs dans le fichier est déja enregitrer, il risque qu'il soit dupliquer, voir même faire crash l'application.</textarea>
+        </div>
+        <div class="addUsers_right">
+        <h4 class="text-center title">Exemple de format fichier csv</h4>
+            <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Password</th>
+                <th scope="col">Mail</th>
+                <th scope="col">Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row">Quentin</th>
+                <td>Your_password</td>
+                <td>Your_Mail</td>
+                <td>teacher or technical(tiny letter)</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </form>
+</body>
+</html>
