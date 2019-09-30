@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 
   //mailer message parameters
 let MailerOptions = {
-    from: '"Maxence Hubert" <'+config.mailer.user+'>',
+    from: '"'+config.mailer.sender+'" <'+config.mailer.user+'>',
     to: config.mailer.receiver,
     subject: 'Les profs ont besoins d\'aide !',
     text: 'test of mailer',

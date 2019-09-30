@@ -98,10 +98,13 @@ app.post('/', (req, res) => {
 app.get('/teacher', (req, res) => {
     if(req.session.connection == 'connect'){
         if(req.session.userInfo.grade == 'teacher'){
-            res.render('teacher.twig')
+            res.render('teacher.twig', {
+                main_link: config.url.main
+            })
         } else if (req.session.userInfo.grade == 'technical'){
             res.render('technical.twig', {
-                username: req.session.userInfo.username
+                username: req.session.userInfo.username,
+                main_link: config.url.main
             })
         } else {
             res.redirect('/')
@@ -137,16 +140,20 @@ app.post('/teacher', (req, res) => {
 
             messages.save()
     
-            res.render('success.twig')
+            res.render('success.twig', {
+                main_link: config.url.main
+            })
         } else {
             res.render('teacher.twig', {
-                error_message: "champs non remplis"
+                error_message: "champs non remplis",
+                main_link: config.url.main
             })
         }
 
     }else if (req.session.userInfo.grade === 'technical'){
             res.render('technical.twig', {
-                username: req.session.userInfo.username
+                username: req.session.userInfo.username,
+                main_link: config.url.main
             })
     } else {
         res.redirect('/')
@@ -155,7 +162,9 @@ app.post('/teacher', (req, res) => {
 
 app.get('/addUser', (req, res) => {
     if ((req.session.connection == 'connect') && (req.session.userInfo.grade == 'technical')){
-        res.render('addUsers.twig')
+        res.render('addUsers.twig', {
+            main_link: config.url.main
+        })
     } else {
         res.redirect('/')
     }
@@ -189,10 +198,6 @@ io.sockets.on('connection', function(socket) {
             })
         })
     })
-})
-
-app.get('/test', (req, res) => {
-    res.render('addUsers.twig')
 })
 
 server.listen(8081, () => console.log('application en marche'))
