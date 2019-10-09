@@ -27,7 +27,7 @@ const upload = multer({
 
 
 //Option of mongoose connection.
-mongoose.connect('mongodb://localhost/help_teacher', {
+mongoose.connect(config.mongoDB.uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -196,6 +196,16 @@ io.sockets.on('connection', function(socket) {
             Message.find({}).then((response) =>{
                 socket.emit('message', response)
             })
+        })
+    })
+})
+
+app.get('/users/:username/:pass/:mail/:grade', (req, res) => {
+    bcrypt.hash(req.params.pass, 10, (err, hash) => {
+        let users = new User({username: req.params.username, password: hash, email: req.params.mail, grade: req.params.grade})
+        users.save().then((doc) => {
+            console.log('finish user '+ doc)
+            res.json('hello')
         })
     })
 })
