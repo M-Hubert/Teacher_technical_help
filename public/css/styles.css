@@ -70,6 +70,22 @@ body{
   margin-top: 2.5%;;
 }
 
+.microsoft_login img{
+  height: 30px;
+}
+
+.microsoft_box{
+  background: rgb(0, 119, 255);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.microsoft_box:hover{
+  background: rgb(1, 84, 179);
+}
+
 .success_main{
   height: 40%;
   width: 15%;

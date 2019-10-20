@@ -11,20 +11,7 @@ const config = require('./config.json')
 const User = require('./modules/userSchema')
 const Message = require('./modules/messageSchema')
 const mailer = require('./modules/mailer')
-const multer = require('multer')
-const newUser = require('./modules/adduser')
-
-const storage = multer.diskStorage({
-    destination: './public/uploads/',
-    filename: function(req, file, cb){
-        cb(null, 'account.csv')
-    }
-})
-
-const upload = multer({
-  storage: storage  
-}).single('file')
-
+const passport = require('passport')
 
 //Option of mongoose connection.
 mongoose.connect(config.mongoDB.uri, {
@@ -52,130 +39,13 @@ app.use(session({
     cookie: { secure: false }
 }))
 
-//Get default URL.
-app.get('/', (req, res) => {
-    req.session.connection = 'disconnect'
-    req.session.userInfo = ""
-    res.render('index.twig', {
-        error_message: ""
-    })
-})
+app.use(passport.initialize())
+app.use(passport.session());
 
-app.post('/', (req, res) => {
-    if((req.body.username) && (req.body.password)){
-        User.find({username: req.body.username}).then((users) => {
-            if (users[0] == undefined){
-                res.render('index.twig', {
-                    error_message: "Ce compte n'éxiste pas."
-                })
-            } else {
-                bcrypt.compare(req.body.password, users[0].password, function(err, response){
-                    if(err){
-                        res.render('index.twig', {
-                            error_message: err.message
-                        })
-                    } else {
-                        if(response){
-                            req.session.connection = 'connect'
-                            req.session.userInfo = users[0]
-                            res.redirect('/teacher')
-                        } else {
-                            res.render('index.twig', {
-                                error_message: "Identifiant incorrect"
-                            }) 
-                        }
-                    }
-                })
-            }
-        })
-    } else {
-        res.render('index.twig', {
-            error_message: "Champs non remplis."
-        })
-    }
-})
-
-app.get('/teacher', (req, res) => {
-    if(req.session.connection == 'connect'){
-        if(req.session.userInfo.grade == 'teacher'){
-            res.render('teacher.twig', {
-                main_link: config.url.main
-            })
-        } else if (req.session.userInfo.grade == 'technical'){
-            res.render('technical.twig', {
-                username: req.session.userInfo.username,
-                main_link: config.url.main
-            })
-        } else {
-            res.redirect('/')
-        }
-    } else {
-        res.redirect('/')
-    }
-})
-
-//when a teacher send a help ticket
-app.post('/teacher', (req, res) => {
-    let choice = ''
-    if (req.session.userInfo.grade === 'teacher'){
-        if (req.body.explanation){
-            switch (req.body.radios) {
-                case "1":
-                    choice = 'Problème matériel'
-                    break;     
-                case "2":
-                    choice = 'Problème de connexion(wifi)'
-                    break;
-                case "3":
-                    choice = 'Problème de connexion Office 365'
-                    break;
-                case "4":
-                    choice = 'Autre'
-                    break;
-            }
-
-            mailer.send(req.session.userInfo.username, choice, req.body.explanation, req.session.userInfo.email)
-    
-            let messages = new Message({user: req.session.userInfo.username, reason: choice, explanation: req.body.explanation, priority: 5, dated: new Date()})
-
-            messages.save()
-    
-            res.render('success.twig', {
-                main_link: config.url.main
-            })
-        } else {
-            res.render('teacher.twig', {
-                error_message: "champs non remplis",
-                main_link: config.url.main
-            })
-        }
-
-    }else if (req.session.userInfo.grade === 'technical'){
-            res.render('technical.twig', {
-                username: req.session.userInfo.username,
-                main_link: config.url.main
-            })
-    } else {
-        res.redirect('/')
-    }
-})
-
-app.get('/addUser', (req, res) => {
-    if ((req.session.connection == 'connect') && (req.session.userInfo.grade == 'technical')){
-        res.render('addUsers.twig', {
-            main_link: config.url.main
-        })
-    } else {
-        res.redirect('/')
-    }
-})
-
-app.post('/addUser', (req, res) => {
-    upload(req, res, (err) => {
-        newUser.add()
-        res.redirect('/teacher')
-    })
-})
+app.use('/microsoft', require('./routes/Microsoft-routes'))
+app.use('/teacher', require('./routes/teacher-routes'))
+app.use('/addUser', require('./routes/addUser-routes'))
+app.use('/', require('./routes/index-routes'))
 
 //when a technical teacher login
 io.sockets.on('connection', function(socket) {
