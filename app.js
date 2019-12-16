@@ -70,14 +70,4 @@ io.sockets.on('connection', function(socket) {
     })
 })
 
-app.get('/users/:username/:pass/:mail/:grade', (req, res) => {
-    bcrypt.hash(req.params.pass, 10, (err, hash) => {
-        let users = new User({username: req.params.username, password: hash, email: req.params.mail, grade: req.params.grade})
-        users.save().then((doc) => {
-            console.log('finish user '+ doc)
-            res.json('hello')
-        })
-    })
-})
-
 server.listen(8081, () => console.log('application en marche'))

@@ -1,0 +1,60 @@
+body{
+    background-image: url("../img/login_landscape.jpg");
+    background-attachment: fixed;
+}
+
+.technical{
+    height: 80%;
+    width: 90%;
+    margin-top: 30px;
+    position: absolute;
+    top: 6%;
+    left: 5%;
+    overflow: auto;
+}
+
+.message-box{
+    height: 80%;
+    width: 90%;
+    position: relative;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+@media screen and (max-width: 1200px) {
+    .technical{
+        top: 0%;
+        left: 0%;
+        margin: 0px;
+        height: 100%;
+        width: 100%;
+    }
+
+    .table thead {
+        display: none;
+    }
+
+    .table, .table tbody, .table tr, .table td, .table th, .delete, #prio{
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .disconnect, .addUser{
+        width: 100%;
+    }
+
+    .disconnect{
+        margin-bottom: 10px;
+    }
+
+    .ticket{
+        border-bottom: rgba(136, 136, 136, 0.459) solid 1px;
+    }
+
+    .message-box{
+        width: 100%;
+    }
+
+}

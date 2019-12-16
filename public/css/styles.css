@@ -3,94 +3,12 @@ body{
   background-attachment: fixed;
 }
 
-.box{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-}
-
-.teacher{
-  height: 60%;
-  width: 70%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-}
-
-.technical{
-  height: 756px;
-  width: 90%;
-  margin-top: 30px;
-  position: absolute;
-  top: 6%;
-  left: 5%;
-}
-
-.addUsers{
-  height: 60%;
-  width: 70%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-}
-
-.addUsers_left{
-  position: absolute;
-  width:40%;
-}
-
-.addUsers_right{
-  right: 35px;
-  position: absolute;
-  width:40%;
-}
-
-.message-box{
-  height: 80%;
-  width: 90%;
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-}
-
-.reason{
-  margin-top: 2%;
-  margin-left: 2%;
-}
-
-.form-check{
-  margin-top: 10px;
-}
-
-.explained{
-  margin-top: 2.5%;;
-}
-
-.microsoft_login img{
-  height: 30px;
-}
-
-.microsoft_box{
-  background: rgb(0, 119, 255);
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
-  transition: 0.3s;
-}
-
-.microsoft_box:hover{
-  background: rgb(1, 84, 179);
-}
-
 .success_main{
-  height: 40%;
-  width: 15%;
+  height: 377px;
+  width: 258px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
+  text-align: center;
 }

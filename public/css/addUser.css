@@ -1,0 +1,48 @@
+body{
+    background-image: url("../img/login_landscape.jpg");
+    background-attachment: fixed;
+}
+  
+.addUsers{
+height: 60%;
+width: 70%;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+}
+
+.addUsers_left{
+position: absolute;
+width:40%;
+}
+
+.addUsers_right{
+right: 35px;
+position: absolute;
+width:40%;
+}
+
+
+@media screen and (max-width: 1780px) {
+    .addUsers{
+        height: 100%;
+        width: 100%;
+    }    
+}
+
+@media screen and (max-width: 1178px) {
+    .addUsers{
+        height: 100%;
+        width: 100%;
+    }   
+    .addUsers_right{
+        position: unset;
+        width: 100%;
+    } 
+    .addUsers_right{
+        position: unset;
+        width: 100%;
+        right: 0;
+    }
+}

@@ -1,0 +1,36 @@
+body{
+    background-image: url("../img/login_landscape.jpg");
+    background-attachment: fixed;
+}
+
+.box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+/* 477 */
+
+.microsoft_login img{
+    height: 30px;
+}
+  
+.microsoft_box{
+    background: rgb(0, 119, 255);
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    transition: 0.3s;
+}
+  
+.microsoft_box:hover{
+    background: rgb(1, 84, 179);
+}
+
+@media screen and (max-width: 577px) {
+    .box{
+        height: 100% !important; 
+        width: 100%;
+    }
+}

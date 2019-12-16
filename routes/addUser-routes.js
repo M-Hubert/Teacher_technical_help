@@ -4,7 +4,7 @@ const config = require('../config.json')
 const newUser = require('../modules/adduser')
 
 const storage = multer.diskStorage({
-    destination: '../public/uploads/',
+    destination: './public/uploads/',
     filename: function(req, file, cb){
         cb(null, 'account.csv')
     }
@@ -28,6 +28,7 @@ router.post('/', (req, res) => {
     upload(req, res, (err) => {
         newUser.add()
         res.redirect('/teacher')
+        console.log(err)
     })
 })
 
